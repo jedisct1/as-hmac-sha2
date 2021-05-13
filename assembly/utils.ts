@@ -62,7 +62,7 @@ function hex2bin(hex: string): Uint8Array | null {
 * @param y array 2
 * @returns true if both arrays contain the same data
 */
-function verify(x: Uint8Array, y: Uint8Array): bool {
+export function verify(x: Uint8Array, y: Uint8Array): bool {
     let d: u8 = 0;
 
     if (x.length != y.length) {
