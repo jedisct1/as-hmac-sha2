@@ -1,7 +1,7 @@
 {
   "name": "as-hmac-sha2",
-  "version": "1.0.0",
-  "description": "SHA-256, HMAC-SHA256, SHA-512 and HMAC-SHA512 for AssemblyScript",
+  "version": "1.0.1",
+  "description": "SHA-256, HMAC-SHA256, SHA-512 and HMAC-SHA512 for AssemblyScript.",
   "main": "index.js",
   "scripts": {
     "asbuild:untouched": "asc assembly/index.ts --target debug",
