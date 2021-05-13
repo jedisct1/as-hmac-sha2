@@ -1,0 +1,38 @@
+{
+  "name": "as-hmac-sha2",
+  "version": "1.0.0",
+  "description": "SHA-256, HMAC-SHA256, SHA-512 and HMAC-SHA512 for AssemblyScript",
+  "main": "index.js",
+  "scripts": {
+    "asbuild:untouched": "asc assembly/index.ts --target debug",
+    "asbuild:optimized": "asc assembly/index.ts --target release",
+    "asbuild": "npm run asbuild:untouched && npm run asbuild:optimized",
+    "test": "asp --verbose",
+    "test:ci": "asp --summary"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jedisct1/as-hmac-sha2.git"
+  },
+  "keywords": [
+    "assemblyscript",
+    "hmac",
+    "sha256",
+    "sha-256",
+    "sha512",
+    "sha-512"
+  ],
+  "author": "Frank Denis <npm@pureftpd.org>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jedisct1/as-hmac/issues"
+  },
+  "homepage": "https://github.com/jedisct1/as-hmac#readme",
+  "dependencies": {
+    "@assemblyscript/loader": "^0.18.31"
+  },
+  "devDependencies": {
+    "@as-pect/cli": "^6.1.1",
+    "assemblyscript": "^0.18.31"
+  }
+}
