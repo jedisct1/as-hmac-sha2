@@ -29,7 +29,7 @@
   },
   "homepage": "https://github.com/jedisct1/as-hmac#readme",
   "devDependencies": {
-    "@as-pect/cli": "^6.1.1",
-    "@assemblyscript/loader": "^0.18.31"
+    "@as-pect/cli": "^6.2.4",
+    "assemblyscript": "^0.19.17"
   }
 }
