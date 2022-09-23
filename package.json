@@ -3,6 +3,7 @@
   "version": "1.0.2",
   "description": "SHA-256, HMAC-SHA256, SHA-512 and HMAC-SHA512 for AssemblyScript.",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "asbuild:untouched": "asc assembly/index.ts --target debug",
     "asbuild:optimized": "asc assembly/index.ts --target release",
@@ -29,7 +30,8 @@
   },
   "homepage": "https://github.com/jedisct1/as-hmac#readme",
   "devDependencies": {
-    "@as-pect/cli": "^6.2.4",
-    "assemblyscript": "^0.19.17"
+    "@assemblyscript/loader": "^0.21.3",
+    "@as-pect/cli": "^7.0.8",
+    "assemblyscript": "^0.21.3"
   }
 }
