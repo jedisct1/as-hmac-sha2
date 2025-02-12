@@ -1,7 +1,6 @@
-import { Sha256 } from "../sha256"
-import { Sha512 } from "../sha512"
-import { bin2hex } from "../utils"
-
+import { Sha256 } from "../sha256";
+import { Sha512 } from "../sha512";
+import { bin2hex } from "../utils";
 
 describe("hashing (SHA-512)", (): void => {
   it("should compute the hash of an empty string", (): void => {
@@ -14,7 +13,7 @@ describe("hashing (SHA-512)", (): void => {
 
   it("should compute the hash of a non-empty string (SHA-512)", (): void => {
     let msg = Uint8Array.wrap(String.UTF8.encode("*"));
-    let h = Sha512.hash(msg)
+    let h = Sha512.hash(msg);
     let hex = bin2hex(h);
     expect<string>(hex).toBe(
       "7846cdd4c2b9052768b8901640122e5282e0b833a6a58312a7763472d448ee23781c7f08d90793fdfe71ffe74238cf6e4aa778cc9bb8cec03ea7268d4893a502"
@@ -22,8 +21,12 @@ describe("hashing (SHA-512)", (): void => {
   });
 
   it("should compute the hash of a larger string (SHA-512)", (): void => {
-    let msg = Uint8Array.wrap(String.UTF8.encode("This is a test vector for the hash function, with an input larger than the block size"));
-    let h = Sha512.hash(msg)
+    let msg = Uint8Array.wrap(
+      String.UTF8.encode(
+        "This is a test vector for the hash function, with an input larger than the block size"
+      )
+    );
+    let h = Sha512.hash(msg);
     let hex = bin2hex(h);
     expect<string>(hex).toBe(
       "59dac56c13b43989000f645d7f0660500d043c9758d05f0afc104729279e6458a6a4b56bc7f3051342aa38663ae06b3895b65e0512d5c0037c56cc84746d36a3"
@@ -31,8 +34,12 @@ describe("hashing (SHA-512)", (): void => {
   });
 
   it("should compute the hash of a split string (SHA-512)", (): void => {
-    let msg1 = Uint8Array.wrap(String.UTF8.encode("This is a test vector for the hash function, "));
-    let msg2 = Uint8Array.wrap(String.UTF8.encode("with an input larger than the block size"));
+    let msg1 = Uint8Array.wrap(
+      String.UTF8.encode("This is a test vector for the hash function, ")
+    );
+    let msg2 = Uint8Array.wrap(
+      String.UTF8.encode("with an input larger than the block size")
+    );
     let st = new Sha512();
     st.update(msg1);
     st.update(msg2);
@@ -44,8 +51,16 @@ describe("hashing (SHA-512)", (): void => {
   });
 
   it("should compute the hash of a block-aligned split string (SHA-512)", (): void => {
-    let msg1 = Uint8Array.wrap(String.UTF8.encode("This is a test vector for the hash function with a length of 64<"));
-    let msg2 = Uint8Array.wrap(String.UTF8.encode(">This is a test vector for the hash function with a length of 64"));
+    let msg1 = Uint8Array.wrap(
+      String.UTF8.encode(
+        "This is a test vector for the hash function with a length of 64<"
+      )
+    );
+    let msg2 = Uint8Array.wrap(
+      String.UTF8.encode(
+        ">This is a test vector for the hash function with a length of 64"
+      )
+    );
     let st = new Sha512();
     st.update(msg1);
     st.update(msg2);
@@ -78,7 +93,7 @@ describe("hashing (SHA-256)", (): void => {
 
   it("should compute the hash of a non-empty string (SHA-256)", (): void => {
     let msg = Uint8Array.wrap(String.UTF8.encode("*"));
-    let h = Sha256.hash(msg)
+    let h = Sha256.hash(msg);
     let hex = bin2hex(h);
     expect<string>(hex).toBe(
       "684888c0ebb17f374298b65ee2807526c066094c701bcc7ebbe1c1095f494fc1"
@@ -86,8 +101,12 @@ describe("hashing (SHA-256)", (): void => {
   });
 
   it("should compute the hash of a larger string (SHA-256)", (): void => {
-    let msg = Uint8Array.wrap(String.UTF8.encode("This is a test vector for the hash function, with an input larger than the block size"));
-    let h = Sha256.hash(msg)
+    let msg = Uint8Array.wrap(
+      String.UTF8.encode(
+        "This is a test vector for the hash function, with an input larger than the block size"
+      )
+    );
+    let h = Sha256.hash(msg);
     let hex = bin2hex(h);
     expect<string>(hex).toBe(
       "e8f6644d4670f6c3d817af6dfcaec03ab6ab58042b03064f4915658e0bc4d443"
@@ -95,8 +114,12 @@ describe("hashing (SHA-256)", (): void => {
   });
 
   it("should compute the hash of a split string (SHA-256)", (): void => {
-    let msg1 = Uint8Array.wrap(String.UTF8.encode("This is a test vector for the hash function, "));
-    let msg2 = Uint8Array.wrap(String.UTF8.encode("with an input larger than the block size"));
+    let msg1 = Uint8Array.wrap(
+      String.UTF8.encode("This is a test vector for the hash function, ")
+    );
+    let msg2 = Uint8Array.wrap(
+      String.UTF8.encode("with an input larger than the block size")
+    );
     let st = new Sha256();
     st.update(msg1);
     st.update(msg2);
@@ -117,4 +140,3 @@ describe("hashing (SHA-256)", (): void => {
     );
   });
 });
-
