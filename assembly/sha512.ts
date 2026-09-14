@@ -5,11 +5,11 @@ function setU8(t: Uint8Array, s: Uint8Array, o: isize = 0): void {
 }
 
 function load64_be(x: Uint8Array, offset: isize): u64 {
-    return bswap(load<u64>(changetype<usize>(x.buffer) + offset));
+    return bswap(load<u64>(x.dataStart + offset));
 }
 
 function store64_be(x: Uint8Array, offset: isize, u: u64): void {
-    store<u64>(changetype<usize>(x.buffer) + offset, bswap(u));
+    store<u64>(x.dataStart + offset, bswap(u));
 }
 
 class Internal {
@@ -158,15 +158,17 @@ class Internal {
         return r;
     }
 
-    static _hashFinal(st: Uint8Array, out: Uint8Array, t: isize, r: isize): void {
+    static _hashFinal(st: Uint8Array, out: Uint8Array, t: u64, r: isize): void {
         let buffered = st.subarray(64);
         let padded = new Uint8Array(256);
         setU8(padded, buffered.subarray(0, <aisize>r));
         padded[<aisize>r] = 0x80;
         if (r < 112) {
+            store64_be(padded, 128 - 16, t >> 61);
             store64_be(padded, 128 - 8, t << 3);
             Internal._hashblocks(st, padded, 128);
         } else {
+            store64_be(padded, 256 - 16, t >> 61);
             store64_be(padded, 256 - 8, t << 3);
             Internal._hashblocks(st, padded, 256);
         }
@@ -196,7 +198,7 @@ class Internal {
         let st = Internal._hashInit();
         let r = Internal._hashUpdate(st, b, b.length, 0);
         r = Internal._hashUpdate(st, m, m.length, r);
-        Internal._hashFinal(st, out, b.length + m.length, r);
+        Internal._hashFinal(st, out, <u64>b.length + m.length, r);
         for (let i = 0; i < b.length; ++i) {
             b[i] ^= 0x6a;
         }
@@ -244,7 +246,7 @@ export class Sha512 {
     */
     final(): Uint8Array {
         let h = new Uint8Array(<aisize>SHA512_HASH_BYTES);
-        Internal._hashFinal(this.st, h, this.t as isize, this.r as isize);
+        Internal._hashFinal(this.st, h, this.t, this.r as isize);
         return h;
     }
 

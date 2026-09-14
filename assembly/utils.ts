@@ -26,7 +26,7 @@ export function bin2hex(bin: Uint8Array): string {
 * @param hex Hex-encoded data
 * @returns Raw binary representation
 */
-function hex2bin(hex: string): Uint8Array | null {
+export function hex2bin(hex: string): Uint8Array | null {
     let hex_len = hex.length;
     if ((hex_len & 1) !== 0) {
         return null;
@@ -41,7 +41,7 @@ function hex2bin(hex: string): Uint8Array | null {
         let c_num0 = (c_num - 10) >> 8;
         let c_alpha = (c & ~32) - 55;
         let c_alpha0 = ((c_alpha - 10) ^ (c_alpha - 16)) >> 8;
-        if ((c_num0 | c_alpha0) === 0) {
+        if (c > 0x7f || (c_num0 | c_alpha0) === 0) {
             return null;
         }
         let c_val = ((c_num0 & c_num) | (c_alpha0 & c_alpha)) as u8;

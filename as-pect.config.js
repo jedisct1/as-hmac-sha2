@@ -1,3 +1,5 @@
+import { createHash, createHmac } from "node:crypto";
+
 export default {
   /**
    * A set of globs passed to the glob package that qualify typescript files for testing.
@@ -17,10 +19,34 @@ export default {
   async instantiate(memory, createImports, instantiate, binary) {
     let instance; // Imports can reference this
     const myImports = {
-      env: { memory }
+      env: { memory },
+      reference: {
+        hash(bits, message) {
+          return instance.exports.__newString(
+            createHash(`sha${bits}`)
+              .update(instance.exports.__getUint8Array(message))
+              .digest("hex")
+          );
+        },
+        hmac(bits, message, key) {
+          return instance.exports.__newString(
+            createHmac(`sha${bits}`, instance.exports.__getUint8Array(key))
+              .update(instance.exports.__getUint8Array(message))
+              .digest("hex")
+          );
+        },
+        zeroes(bits, length) {
+          const hash = createHash(`sha${bits}`);
+          const block = Buffer.alloc(1024 * 1024);
+          for (let remaining = length; remaining > 0; remaining -= block.length) {
+            hash.update(block.subarray(0, Math.min(remaining, block.length)));
+          }
+          return instance.exports.__newString(hash.digest("hex"));
+        },
+      }
       // put your web assembly imports here, and return the module promise
     };
-    instance = instantiate(binary, createImports(myImports));
+    instance = await instantiate(binary, createImports(myImports));
     return instance;
   },
   /** Enable code coverage by uncommenting the following line. */
