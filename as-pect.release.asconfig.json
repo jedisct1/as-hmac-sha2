@@ -1,0 +1,9 @@
+{
+  "extends": "./as-pect.asconfig.json",
+  "options": {
+    "optimizeLevel": 3,
+    "shrinkLevel": 1,
+    "debug": false,
+    "use": ["RTRACE=0"]
+  }
+}
