@@ -38,3 +38,20 @@ Constant-time hexadecimal encoding/decoding:
 let hex = bin2hex(h);
 let bin = hex2bin(hex);
 ```
+
+`hex2bin` accepts uppercase and lowercase ASCII hex, and returns `null` for invalid input.
+
+Development requires Node.js 20 or later and npm 10 or later:
+
+```sh
+npm install
+npm test
+npm run test:release
+npm run test:long
+npm run test:package
+```
+
+The long-message test checks SHA-256 and SHA-512 against Node's crypto implementation
+at 256 MiB, 512 MiB, and 512 MiB + 1 byte using streamed input. The package test builds
+and installs a local tarball with production dependencies, then exercises its Node and
+AssemblyScript entry points.
